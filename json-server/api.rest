@@ -7,4 +7,4 @@ GET http://localhost:9000/api/trips
 GET http://localhost:9000/api/trips?from=0&to=2
 
 ### GET trips fillter by `tags`
-GET http://localhost:9000/api/trips?tag=ภูเขา
+GET http://localhost:9000/api/trips?tag=หิมะ

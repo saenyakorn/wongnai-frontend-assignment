@@ -2,10 +2,11 @@
   "name": "json-server",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon ./src/index.js",
+    "start": "nodemon index.js",
     "format": "yarn prettier --write ."
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "json-server": "^0.16.1"
   },
   "devDependencies": {
