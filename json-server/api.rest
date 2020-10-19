@@ -1,0 +1,10 @@
+### VSCode REST Client Extension for sending API
+
+### GET All trips in database
+GET http://localhost:9000/api/trips
+ 
+### GET trips from `from` to `to` by index
+GET http://localhost:9000/api/trips?from=0&to=2
+
+### GET trips fillter by `tags`
+GET http://localhost:9000/api/trips?tag=ภูเขา

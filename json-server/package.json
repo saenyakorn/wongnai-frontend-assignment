@@ -2,9 +2,14 @@
   "name": "json-server",
   "version": "1.0.0",
   "scripts": {
-    "start": "json-server --watch db.json --port 9000"
+    "start": "nodemon ./src/index.js",
+    "format": "yarn prettier --write ."
   },
   "dependencies": {
     "json-server": "^0.16.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "prettier": "^2.1.2"
   }
 }
