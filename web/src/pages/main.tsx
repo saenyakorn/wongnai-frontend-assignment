@@ -1,9 +1,10 @@
 import { Container, Typography, makeStyles, TextField, Box } from "@material-ui/core"
-import React, { useCallback, useEffect, useRef } from "react"
+import React, { useCallback, useEffect, useMemo, useRef } from "react"
 import CardComponent from "../core/components/card"
-import LoadingComponent from "../core/components/loading"
 import EmptyTripComponent from "../core/components/emptyTrip"
 import { useTripContext } from "../core/controllers/trip"
+import { useParams } from "react-router-dom"
+import LoadingComponent from "../core/components/loading"
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -27,7 +28,8 @@ const useStyles = makeStyles(theme => ({
 
 const MainPage = () => {
   const classes = useStyles()
-  const { trips, setupTrips, searchTrip, initTagValue } = useTripContext()
+  const { tag: initTagValue } = useParams<{ tag: string | undefined }>()
+  const { trips, setupTrips, searchTrip } = useTripContext()
   const tagInputRef = useRef<HTMLInputElement>()
 
   const handleSubmit = useCallback(
@@ -41,8 +43,9 @@ const MainPage = () => {
 
   useEffect(() => {
     // render once when entering this page
-    setupTrips()
-  }, [setupTrips])
+    console.log(initTagValue)
+    setupTrips(initTagValue)
+  }, [setupTrips, initTagValue])
 
   if (!trips) {
     return <LoadingComponent open={true} />
@@ -56,6 +59,7 @@ const MainPage = () => {
       <Box mx={2}>
         <form noValidate onSubmit={handleSubmit} className={classes.form}>
           <TextField
+            key={`tagInput${initTagValue}`}
             defaultValue={initTagValue}
             inputRef={tagInputRef}
             placeholder="หาที่เที่ยวแล้วไปกัน..."
@@ -65,7 +69,7 @@ const MainPage = () => {
         </form>
       </Box>
       <div>
-        {trips.length > 0 ? (
+        {trips && trips.length > 0 ? (
           trips?.map(({ title, description, url, tags, photos }, index) => (
             <CardComponent
               key={`card-${index}`}

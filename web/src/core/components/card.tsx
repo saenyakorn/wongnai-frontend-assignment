@@ -1,8 +1,8 @@
 import { Grid, makeStyles, Typography, Box } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
 import React, { useCallback } from "react"
-import { useTripContext } from "../controllers/trip"
 import SkeletonImage from "./skeletonImage"
+import { Link } from "react-router-dom"
 
 export interface CardProps {
   title: string
@@ -79,14 +79,6 @@ const useStyles = makeStyles(theme => ({
 
 const CardComponent: React.FC<CardProps> = ({ title, description, url, tags, mainImage, otherImage }) => {
   const classes = useStyles()
-  const { searchTrip } = useTripContext()
-
-  const handleTagClick = useCallback(
-    (tag: string) => {
-      searchTrip(tag)
-    },
-    [searchTrip]
-  )
 
   const limitWordLength = useCallback((word: string) => {
     let limitLength = 240
@@ -127,9 +119,9 @@ const CardComponent: React.FC<CardProps> = ({ title, description, url, tags, mai
               {tags.map((tag, index) => (
                 <React.Fragment key={`tag-${index}`}>
                   {index === tags.length - 1 && <Typography component="span">และ</Typography>}
-                  <Typography component="span" className="link" onClick={() => handleTagClick(tag)}>
+                  <Link className="link" to={`/tag/${tag}`}>
                     {tag}
-                  </Typography>
+                  </Link>
                 </React.Fragment>
               ))}
             </div>

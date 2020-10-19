@@ -1,17 +1,17 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from "react"
+import React, { createContext, useCallback, useContext, useState } from "react"
 import { useLoadingContext } from "./loading"
 import { useSnackBarContext } from "./snackbar"
 import { getAllTrips, getTripsByTag } from "../../core/services/trip"
 import Trip from "../models/trip"
 import { useHistory } from "react-router-dom"
-import { useQuery } from "../../utls/hook"
 
 export interface TripConstruct {
   trips: Trip[] | undefined
   setTrips: React.Dispatch<React.SetStateAction<Trip[] | undefined>>
-  setupTrips: () => Promise<void>
-  initTagValue: string | null
-  searchTrip: (event: any) => Promise<void>
+  setupTrips: (tag: string | undefined) => Promise<void>
+  initTagValue: string | undefined
+  setInitTagValue: React.Dispatch<React.SetStateAction<string | undefined>>
+  searchTrip: (tag: string | undefined) => Promise<void>
 }
 
 export const TripContext = createContext({} as TripConstruct)
@@ -19,13 +19,11 @@ export const TripContext = createContext({} as TripConstruct)
 export const useTripContext = () => useContext(TripContext)
 
 const TripProvider: React.FC = ({ children, ...other }) => {
-  const query = useQuery()
   const history = useHistory()
+  const [initTagValue, setInitTagValue] = useState<string | undefined>("")
   const [trips, setTrips] = useState<Trip[] | undefined>(undefined)
   const { setLoading } = useLoadingContext()
   const { activeSnackbar } = useSnackBarContext()
-
-  const initTagValue = useMemo(() => (query.has("tag") ? query.get("tag") : ""), [query])
 
   const fetchingTrips = useCallback(
     async (tripFetcher: () => Promise<Trip[]>): Promise<Trip[] | undefined> => {
@@ -46,29 +44,34 @@ const TripProvider: React.FC = ({ children, ...other }) => {
     [setLoading, activeSnackbar]
   )
 
-  const setupTrips = useCallback(async () => {
-    let data
-    if (!initTagValue) {
-      // if there is no `tag` params, then searching trip without tag
-      data = await fetchingTrips(async () => await getAllTrips())
-    } else {
-      // if there is `tag` params, then searching trip by tag
-      data = await fetchingTrips(async () => await getTripsByTag(initTagValue))
-    }
-    setTrips(data)
-  }, [fetchingTrips, initTagValue])
+  const setupTrips = useCallback(
+    async (tag: string | undefined) => {
+      let data
+      if (!tag) {
+        // if there is no `tag` params, then searching trip without tag
+        data = await fetchingTrips(async () => await getAllTrips())
+      } else {
+        // if there is `tag` params, then searching trip by tag
+        data = await fetchingTrips(async () => await getTripsByTag(tag))
+      }
+      setInitTagValue(tag)
+      setTrips(data)
+    },
+    [fetchingTrips]
+  )
 
   const searchTrip = useCallback(
-    async (tag: string | null) => {
+    async (tag: string | undefined) => {
       // after user submit the form, redirect to the page with `tag` params
-      history.push(!tag ? `/trips` : `/trips?tag=${tag}`)
+      history.push(tag ? `/tag/${tag}` : "/")
       window.location.reload()
-      await setupTrips()
+      await setupTrips(tag)
     },
     [history, setupTrips]
   )
 
-  const value = { trips, setTrips, setupTrips, initTagValue, searchTrip }
+  const value = { trips, setTrips, setupTrips, initTagValue, setInitTagValue, searchTrip }
+
   return (
     <TripContext.Provider value={value} {...other}>
       {children}
