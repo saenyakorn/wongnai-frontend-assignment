@@ -5,6 +5,6 @@ export async function getAllTrips(): Promise<Trip[]> {
   return (await httpClient.get(`/api/trips`)).data
 }
 
-export async function getTripsByTag(tag: string): Promise<Trip[]> {
-  return (await httpClient.get(`/api/trips?tag=${tag}`)).data
+export async function getTripsByKeyword(keyword: string): Promise<Trip[]> {
+  return (await httpClient.get(`/api/trips?keyword=${keyword}`)).data
 }

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react"
 import { act } from "react-dom/test-utils"
 
-export const listOfTags = [
+export const listOfKeywords = [
   ["เกาะ", "เกาะ"],
   ["ทะเล", "ทะเล"],
   ["ถ่ายรูปสวย", "ถ่ายรูปสวย"],

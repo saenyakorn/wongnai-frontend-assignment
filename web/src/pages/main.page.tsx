@@ -27,23 +27,23 @@ const useStyles = makeStyles(theme => ({
 
 const MainPage = () => {
   const classes = useStyles()
-  const { tag: initTagValue } = useParams<{ tag: string | undefined }>()
+  const { keyword: initKeywordValue } = useParams<{ keyword: string | undefined }>()
   const { trips, setupTrips, searchTrip } = useTripContext()
-  const tagInputRef = useRef<HTMLInputElement>()
+  const keywordInputRef = useRef<HTMLInputElement>()
 
   const handleSubmit = useCallback(
     (event: any) => {
       event.preventDefault()
-      let tag = tagInputRef.current?.value
-      searchTrip(tag)
+      let keyword = keywordInputRef.current?.value
+      searchTrip(keyword)
     },
     [searchTrip]
   )
 
   useEffect(() => {
     // render once when entering this page
-    setupTrips(initTagValue)
-  }, [setupTrips, initTagValue])
+    setupTrips(initKeywordValue)
+  }, [setupTrips, initKeywordValue])
 
   return (
     <Container maxWidth="md" className={classes.container}>
@@ -54,9 +54,9 @@ const MainPage = () => {
         <form noValidate onSubmit={handleSubmit} className={classes.form}>
           <TextField
             inputProps={{ "data-testid": "search" }}
-            key={`tagInput${initTagValue}`}
-            defaultValue={initTagValue}
-            inputRef={tagInputRef}
+            key={`keywordInput${initKeywordValue}`}
+            defaultValue={initKeywordValue}
+            inputRef={keywordInputRef}
             placeholder="หาที่เที่ยวแล้วไปกัน..."
             className={classes.inputCenter}
             fullWidth

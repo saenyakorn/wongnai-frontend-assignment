@@ -119,7 +119,7 @@ const CardComponent: React.FC<CardProps> = ({ title, description, url, tags, mai
               {tags.map((tag, index) => (
                 <React.Fragment key={`tag-${index}`}>
                   {index === tags.length - 1 && <Typography component="span">และ</Typography>}
-                  <Link className="link" to={`/tag/${tag}`} data-testid={tag}>
+                  <Link className="link" to={`/keyword/${tag}`} data-testid={tag}>
                     {tag}
                   </Link>
                 </React.Fragment>
