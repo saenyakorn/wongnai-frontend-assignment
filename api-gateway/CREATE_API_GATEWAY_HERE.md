@@ -1,10 +1,10 @@
 # API Gateway
 
-Mock API for frontend internship assigment
+Mock API for Wongnai frontend internship assigment
 
 # Getting Start
 
-Before using API, you should install dependencies first.
+Before using json-server, you should install dependencies first.
 
 ```
 cd json-server
@@ -29,6 +29,7 @@ now json-server is running at [localhost:9000](http://localhost:9000)
 
   ```
     GET /api/trips
+    Response status: 200
 
     [
       {
@@ -73,32 +74,34 @@ now json-server is running at [localhost:9000](http://localhost:9000)
   ]
   ```
 
-  - ### GET /api/trips?tag=:tag
+- ### GET /api/trips?keyword=:keyword
 
-    Filttering all trips by tag. Return array of trips
+  Filtering all trips by title, description and tags as `keyword`. Return array of trips
 
-    Example Response:
+  Example Response:
 
-    ```
-    GET /api/trips?tag=หิมะ
-    [
-      {
-        "title": "เที่ยวฟินแลนด์แบบฟิน ๆ ไปฟาร์ม Husky ขี่ Reindeer เล่น Snowmobile",
-        "eid": "10",
-        "url": "https://www.wongnai.com/trips/trip-at-finland",
-        "description": "ใครว่าเที่ยวฟินแลนด์ มีแค่ล่าแสงเหนือ กิจกรรมกลางภูเขาหิมะเค้าก็มีให้ทำเพียบ! ทั้งขี่ Husky, Reindeer ขับเจ็ทสกีหิมะท่ามกลางอุณภูมิติดลบ ต้องลองสักครั้งในชีวิต\n\nหน้าหนาวนี้ใครไม่รู้จะไปเที่ยว ที่เที่ยวต่างประเทศที่ไหนดี แนะนำว่าเตรียมเสื้อผ้าให้พร้อมแล้วไปเที่ยวฟินแลนด์ท้าลมหนาวอุณหภูมิติดลบ Feel like -20 กันเลยค่ะ งานนี้บอกเลยว่านั่งเครื่องยาวมากเวอร์ 10 ชั่วโมงบวก ๆ แล้วแต่สายการบิน สำหรับใครที่กลัวว่าจะเหนื่อยเกินไป แนะนำให้แวะยืดเส้นยืดสายที่เที่ยวยุโรปหรือที่เที่ยวต่างประเทศอื่น ๆ ก่อน แล้วค่อยต่อเครื่องมาเที่ยวฟินแลนด์ก็ได้นะคะ",
-        "photos": [
-            "https://img.wongnai.com/p/1600x0/2019/05/21/cd54e9c640694a95b7e0103b0ead5408.jpg",
-            "https://img.wongnai.com/p/1600x0/2019/05/21/cf792ff02ab0491b9f30d67d33634f78.jpg",
-            "https://img.wongnai.com/p/1600x0/2019/05/21/e87ce6e73c634532afd50dd02517fee9.jpg",
-            "https://img.wongnai.com/p/1600x0/2019/05/21/ea0f93584b3c4f3ba0680fcc11bc3a13.jpg"
-        ],
-        "tags": [
-            "ต่างประเทศ",
-            "ฟินแลนด์",
-            "หิมะ",
-            "ธรรมชาติ"
-        ]
-      }
-    ]
-    ```
+  ```
+  GET /api/trips?keyword=หิมะ
+  Response status: 200
+
+  [
+    {
+      "title": "เที่ยวฟินแลนด์แบบฟิน ๆ ไปฟาร์ม Husky ขี่ Reindeer เล่น Snowmobile",
+      "eid": "10",
+      "url": "https://www.wongnai.com/trips/trip-at-finland",
+      "description": "ใครว่าเที่ยวฟินแลนด์ มีแค่ล่าแสงเหนือ กิจกรรมกลางภูเขาหิมะเค้าก็มีให้ทำเพียบ! ทั้งขี่ Husky, Reindeer ขับเจ็ทสกีหิมะท่ามกลางอุณภูมิติดลบ ต้องลองสักครั้งในชีวิต\n\nหน้าหนาวนี้ใครไม่รู้จะไปเที่ยว ที่เที่ยวต่างประเทศที่ไหนดี แนะนำว่าเตรียมเสื้อผ้าให้พร้อมแล้วไปเที่ยวฟินแลนด์ท้าลมหนาวอุณหภูมิติดลบ Feel like -20 กันเลยค่ะ งานนี้บอกเลยว่านั่งเครื่องยาวมากเวอร์ 10 ชั่วโมงบวก ๆ แล้วแต่สายการบิน สำหรับใครที่กลัวว่าจะเหนื่อยเกินไป แนะนำให้แวะยืดเส้นยืดสายที่เที่ยวยุโรปหรือที่เที่ยวต่างประเทศอื่น ๆ ก่อน แล้วค่อยต่อเครื่องมาเที่ยวฟินแลนด์ก็ได้นะคะ",
+      "photos": [
+          "https://img.wongnai.com/p/1600x0/2019/05/21/cd54e9c640694a95b7e0103b0ead5408.jpg",
+          "https://img.wongnai.com/p/1600x0/2019/05/21/cf792ff02ab0491b9f30d67d33634f78.jpg",
+          "https://img.wongnai.com/p/1600x0/2019/05/21/e87ce6e73c634532afd50dd02517fee9.jpg",
+          "https://img.wongnai.com/p/1600x0/2019/05/21/ea0f93584b3c4f3ba0680fcc11bc3a13.jpg"
+      ],
+      "tags": [
+          "ต่างประเทศ",
+          "ฟินแลนด์",
+          "หิมะ",
+          "ธรรมชาติ"
+      ]
+    }
+  ]
+  ```
