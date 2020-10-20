@@ -1,5 +1,5 @@
 import { Container, Typography, makeStyles, TextField, Box } from "@material-ui/core"
-import React, { useCallback, useEffect, useMemo, useRef } from "react"
+import React, { useCallback, useEffect, useRef } from "react"
 import CardComponent from "../core/components/card"
 import EmptyTripComponent from "../core/components/emptyTrip"
 import { useTripContext } from "../core/controllers/trip"
@@ -43,7 +43,6 @@ const MainPage = () => {
 
   useEffect(() => {
     // render once when entering this page
-    console.log(initTagValue)
     setupTrips(initTagValue)
   }, [setupTrips, initTagValue])
 

@@ -90,7 +90,6 @@ const CardComponent: React.FC<CardProps> = ({ title, description, url, tags, mai
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4} md={4} className={classes.mainImageContainer}>
           <SkeletonImage alt={title} src={mainImage} className={classes.mainImage} />
-          {/* <img alt={title} src={mainImage} className={classes.mainImage} onLoad={() => console.log(title + " success")} /> */}
         </Grid>
         <Grid item xs={12} sm={8} md={8}>
           <a href={url} target="_blank" rel="noopener noreferrer" className={classes.title}>
