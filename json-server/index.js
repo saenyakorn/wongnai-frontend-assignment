@@ -24,7 +24,7 @@ server.get("/api/trips", (req, res) => {
     // has a keyword, then filter trips
     let filteredDB = db.filter(trip => {
       let { title, description, tags } = trip
-      return title.includes(keyword) | description.includes(keyword) | tags.join("").includes(keyword)
+      return title.includes(keyword) || description.includes(keyword) || tags.join("").includes(keyword)
     })
     res.status(200).send(filteredDB)
   } else {
