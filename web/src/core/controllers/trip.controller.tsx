@@ -1,5 +1,4 @@
 import React, { createContext, useCallback, useContext, useState } from "react"
-import { useLoadingContext } from "./loading.controller"
 import { useSnackBarContext } from "./snackbar.controller"
 import { getAllTrips, getTripsByTag } from "../services/trip.service"
 import Trip from "../models/trip.model"
@@ -11,7 +10,7 @@ export interface TripConstruct {
   setupTrips: (tag: string | undefined) => Promise<void>
   initTagValue: string | undefined
   setInitTagValue: React.Dispatch<React.SetStateAction<string | undefined>>
-  searchTrip: (tag: string | undefined) => Promise<void>
+  searchTrip: (tag: string | undefined) => void
 }
 
 export const TripContext = createContext({} as TripConstruct)
@@ -22,31 +21,31 @@ const TripProvider: React.FC = ({ children, ...other }) => {
   const history = useHistory()
   const [initTagValue, setInitTagValue] = useState<string | undefined>("")
   const [trips, setTrips] = useState<Trip[] | undefined>(undefined)
-  const { setLoading } = useLoadingContext()
   const { activeSnackbar } = useSnackBarContext()
 
   const fetchingTrips = useCallback(
     async (tripFetcher: () => Promise<Trip[]>): Promise<Trip[] | undefined> => {
       let result
-      setLoading(true)
       try {
+        // fetching trips data
         result = await tripFetcher()
       } catch (error) {
+        // show up the snackbar if it has some error
         console.error(error.response)
         activeSnackbar({
           message: "ไม่สามารถดึงข้อมูลได้",
           type: "error"
         })
       }
-      setLoading(false)
       return result
     },
-    [setLoading, activeSnackbar]
+    [activeSnackbar]
   )
 
   const setupTrips = useCallback(
     async (tag: string | undefined) => {
       let data
+      setTrips(undefined)
       if (!tag) {
         // if there is no `tag` params, then searching trip without tag
         data = await fetchingTrips(async () => await getAllTrips())
@@ -61,13 +60,11 @@ const TripProvider: React.FC = ({ children, ...other }) => {
   )
 
   const searchTrip = useCallback(
-    async (tag: string | undefined) => {
+    (tag: string | undefined) => {
       // after user submit the form, redirect to the page with `tag` params
       history.push(tag ? `/tag/${tag}` : "/")
-      window.location.reload()
-      await setupTrips(tag)
     },
-    [history, setupTrips]
+    [history]
   )
 
   const value = { trips, setTrips, setupTrips, initTagValue, setInitTagValue, searchTrip }

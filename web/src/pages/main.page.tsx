@@ -1,10 +1,9 @@
-import { Container, Typography, makeStyles, TextField, Box } from "@material-ui/core"
+import { Container, Typography, makeStyles, TextField, Box, CircularProgress } from "@material-ui/core"
 import React, { useCallback, useEffect, useRef } from "react"
 import CardComponent from "../core/components/card.component"
 import EmptyTripComponent from "../core/components/emptyTrip.component"
 import { useTripContext } from "../core/controllers/trip.controller"
 import { useParams } from "react-router-dom"
-import LoadingComponent from "../core/components/loading.component"
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -18,8 +17,8 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, "auto")
   },
   inputCenter: {
-    "& $div": {
-      "& $input": {
+    "& div": {
+      "& input": {
         textAlign: "center"
       }
     }
@@ -46,10 +45,6 @@ const MainPage = () => {
     setupTrips(initTagValue)
   }, [setupTrips, initTagValue])
 
-  if (!trips) {
-    return <LoadingComponent open={true} />
-  }
-
   return (
     <Container maxWidth="md" className={classes.container}>
       <Typography variant="h2" color="primary" align="center">
@@ -58,6 +53,7 @@ const MainPage = () => {
       <Box mx={2}>
         <form noValidate onSubmit={handleSubmit} className={classes.form}>
           <TextField
+            inputProps={{ "data-testid": "search" }}
             key={`tagInput${initTagValue}`}
             defaultValue={initTagValue}
             inputRef={tagInputRef}
@@ -68,7 +64,11 @@ const MainPage = () => {
         </form>
       </Box>
       <div>
-        {trips && trips.length > 0 ? (
+        {!trips ? (
+          <Box display="flex" justifyContent="center" mt={7}>
+            <CircularProgress />
+          </Box>
+        ) : trips.length > 0 ? (
           trips?.map(({ title, description, url, tags, photos }, index) => (
             <CardComponent
               key={`card-${index}`}

@@ -89,9 +89,11 @@ const CardComponent: React.FC<CardProps> = ({ title, description, url, tags, mai
     <div className={classes.container}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4} md={4} className={classes.mainImageContainer}>
+          {/* Card's left side */}
           <SkeletonImage alt={title} src={mainImage} className={classes.mainImage} />
         </Grid>
         <Grid item xs={12} sm={8} md={8}>
+          {/* Card's right side */}
           <a href={url} target="_blank" rel="noopener noreferrer" className={classes.title}>
             {title}
           </a>
@@ -111,21 +113,19 @@ const CardComponent: React.FC<CardProps> = ({ title, description, url, tags, mai
               </a>
             </Typography>
           </Box>
-
           <div className={classes.catogories}>
             <div>หมวด: </div>
             <div className={classes.tagList}>
               {tags.map((tag, index) => (
                 <React.Fragment key={`tag-${index}`}>
                   {index === tags.length - 1 && <Typography component="span">และ</Typography>}
-                  <Link className="link" to={`/tag/${tag}`}>
+                  <Link className="link" to={`/tag/${tag}`} data-testid={tag}>
                     {tag}
                   </Link>
                 </React.Fragment>
               ))}
             </div>
           </div>
-
           <div className={classes.photosContainer}>
             {otherImage.map((photoURL, index) => (
               <SkeletonImage key={`photo-${index}`} alt={title} src={photoURL} className={classes.photo} />
