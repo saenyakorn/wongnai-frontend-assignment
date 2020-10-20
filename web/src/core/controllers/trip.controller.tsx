@@ -1,8 +1,8 @@
 import React, { createContext, useCallback, useContext, useState } from "react"
-import { useLoadingContext } from "./loading"
-import { useSnackBarContext } from "./snackbar"
-import { getAllTrips, getTripsByTag } from "../../core/services/trip"
-import Trip from "../models/trip"
+import { useLoadingContext } from "./loading.controller"
+import { useSnackBarContext } from "./snackbar.controller"
+import { getAllTrips, getTripsByTag } from "../services/trip.service"
+import Trip from "../models/trip.model"
 import { useHistory } from "react-router-dom"
 
 export interface TripConstruct {

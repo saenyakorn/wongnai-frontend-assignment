@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from "react"
-import { ActiveSnackBarProps } from "../components/snackbar"
-import SnackbarComponent from "../components/snackbar"
+import { ActiveSnackBarProps } from "../components/snackbar.component"
+import SnackbarComponent from "../components/snackbar.component"
 
 let currentSnackbarId = 0
 

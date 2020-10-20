@@ -1,7 +1,7 @@
 import { Grid, makeStyles, Typography, Box } from "@material-ui/core"
 import { grey } from "@material-ui/core/colors"
 import React, { useCallback } from "react"
-import SkeletonImage from "./skeletonImage"
+import SkeletonImage from "./skeletonImage.component"
 import { Link } from "react-router-dom"
 
 export interface CardProps {

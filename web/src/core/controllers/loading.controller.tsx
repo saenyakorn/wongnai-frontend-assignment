@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react"
-import LoadingComponent from "../components/loading"
+import LoadingComponent from "../components/loading.component"
 
 export interface LoadingConstruct {
   loading: boolean

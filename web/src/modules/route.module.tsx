@@ -2,8 +2,8 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 // Import All Pages
-import NotFoundPage from "../pages/notFound"
-import MainPage from "../pages/main"
+import NotFoundPage from "../pages/notFound.page"
+import MainPage from "../pages/main.page"
 
 const RouteModule = () => {
   return (

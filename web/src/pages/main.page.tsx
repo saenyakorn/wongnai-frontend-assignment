@@ -1,10 +1,10 @@
 import { Container, Typography, makeStyles, TextField, Box } from "@material-ui/core"
 import React, { useCallback, useEffect, useRef } from "react"
-import CardComponent from "../core/components/card"
-import EmptyTripComponent from "../core/components/emptyTrip"
-import { useTripContext } from "../core/controllers/trip"
+import CardComponent from "../core/components/card.component"
+import EmptyTripComponent from "../core/components/emptyTrip.component"
+import { useTripContext } from "../core/controllers/trip.controller"
 import { useParams } from "react-router-dom"
-import LoadingComponent from "../core/components/loading"
+import LoadingComponent from "../core/components/loading.component"
 
 const useStyles = makeStyles(theme => ({
   container: {
