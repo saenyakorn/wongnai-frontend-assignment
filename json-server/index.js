@@ -9,21 +9,34 @@ dotenv.config()
 //set up middlewares
 server.use(middlewares)
 
+// Allow CORS
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*")
   next()
 })
 
-//rewriter router
-server.use(
-  jsonServer.rewriter({
-    "/api/trips?tag=:tag": "/trips?tags_like=:tag",
-    "/api/trips?from=:from&to=:to": "/trips?_start=:from&_end=:to",
-    "/api/*": "/$1"
-  })
-)
+// Custom Route
+server.get("/api/trips", (req, res) => {
+  let { keyword } = req.query
+  console.log("wwww")
+  let db = router.db.get("trips").value()
+  if (!!keyword) {
+    // has a keyword, then filter trips
+    let filteredDB = db.filter(trip => {
+      let { title, description, tags } = trip
+      return title.includes(keyword) | description.includes(keyword) | tags.join("").includes(keyword)
+    })
+    res.status(200).send(filteredDB)
+  } else {
+    // return all trips
+    res.status(200).send(db)
+  }
+})
 
-//set up database
+// set `/api/*` as router
+server.use("/api", router)
+
+// Set up database
 server.use(router)
 
 server.listen(process.env.PORT, () => console.log(`json server is running at localhost:${process.env.PORT}`))

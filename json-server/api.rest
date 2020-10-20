@@ -6,5 +6,5 @@ GET http://localhost:9000/api/trips
 ### GET trips from `from` to `to` by index
 GET http://localhost:9000/api/trips?from=0&to=2
 
-### GET trips fillter by `tags`
-GET http://localhost:9000/api/trips?tag=หิมะ
+### GET trips filter by `keyword`
+GET http://localhost:9000/api/trips?keyword=ภูเขา
